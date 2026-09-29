@@ -3,7 +3,7 @@ URL="https://pages.formacaoaws.com.br/bootcamp-imersao-aws-ga-qt-fu/"
 #URL="https://pages.formacaoaws.com.br/wp-includes/images/blank.gif"
 while true; do 
   START=$(date '+%Y-%m-%d %H:%M:%S')
-  START_MS=$(gdate +%s%3N)
+  START_MS=$(date +%s%3N)
   
   # Captura todos os cabeçalhos
   HEADERS=$(curl -s -I -X GET $URL)
@@ -12,7 +12,7 @@ while true; do
   X_CACHE=$(echo "$HEADERS" | grep -i x-cache | awk -F ': ' '{print $2}' | tr -d '\r')
   CACHE_CONTROL=$(echo "$HEADERS" | grep -i cache-control | awk -F ': ' '{print $2}' | tr -d '\r')
   
-  END_MS=$(gdate +%s%3N)
+  END_MS=$(date +%s%3N)
   DURATION=$((END_MS - START_MS))
   
   # Adiciona o Cache-Control apenas se X-Cache contiver "Miss from cloudfront"
