@@ -29,20 +29,20 @@ const AddTask = ({ onAdd }) => {
   return (
     <form className="add-form" onSubmit={onSubmit}>
       <div className="form-control">
-        <label>Tarefa</label>
+        <label>Nome do Participante</label>
         <input
           type="text"
-          placeholder="O que você precisa fazer?"
+          placeholder="Digite seu nome aqui"
           value={titulo}
           onChange={(e) => setTitulo(e.target.value)}
         />
       </div>
       
       <div className="form-control">
-        <label>Data/Prazo</label>
+        <label>Feedback</label>
         <input
           type="text"
-          placeholder="Quando?"
+          placeholder="Dê seu feedback aqui"
           value={dia}
           onChange={(e) => setDia(e.target.value)}
         />
@@ -59,7 +59,7 @@ const AddTask = ({ onAdd }) => {
       </div>
       
       <button type="submit" className="btn btn-block success">
-        Add Task com CI/CD
+        Enviar feedback
       </button>
       
       <Modal

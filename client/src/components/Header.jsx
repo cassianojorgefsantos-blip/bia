@@ -24,7 +24,7 @@ const Header = ({ title }) => {
 };
 
 Header.defaultProps = {
-  title: "BIA 2026",
+  title: "Feedback do Nave de Portas Abertas (NPA) - 2026",
 };
 
 export default Header;
