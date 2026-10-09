@@ -19,7 +19,7 @@ COPY . .
 
 # Build do front-end com Vite
 ARG VITE_API_URL=http://localhost:8080
-RUN cd client && VITE_API_URL=http://bia-alb-318945262.us-east-1.elb.amazonaws.com npm run build
+RUN cd client && VITE_API_URL=https://npa2026.cassianjo.com.br npm run build
 
 # Limpeza das dependências de desenvolvimento do client para reduzir tamanho
 RUN cd client && npm prune --production && rm -rf node_modules/.cache
