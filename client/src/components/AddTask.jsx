@@ -42,7 +42,7 @@ const AddTask = ({ onAdd }) => {
         <label>Feedback</label>
         <input
           type="text"
-          placeholder="Dê seu feedback aqui"
+          placeholder="Envie seu feedback aqui"
           value={dia}
           onChange={(e) => setDia(e.target.value)}
         />
