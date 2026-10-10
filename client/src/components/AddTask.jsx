@@ -29,7 +29,7 @@ const AddTask = ({ onAdd }) => {
   return (
     <form className="add-form" onSubmit={onSubmit}>
       <div className="form-control">
-        <label>Nome do Participante</label>
+        <label>Nome do Participanta</label>
         <input
           type="text"
           placeholder="Digite seu nome aqui"
