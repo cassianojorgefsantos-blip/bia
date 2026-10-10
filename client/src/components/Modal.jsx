@@ -37,7 +37,7 @@ const Modal = ({ isOpen, onClose, onConfirm, title, message, type = 'info' }) =>
           <h3 className="modal-title">{title || 'Atenção'}</h3>
         </div>
         <div className="modal-body">
-          <p>{message}</p>
+          <div>{message}</div>
         </div>
         <div className="modal-footer">
           {onConfirm ? (

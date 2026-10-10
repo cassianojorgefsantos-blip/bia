@@ -8,6 +8,8 @@ module.exports = (sequelize, DataTypes) => {
     titulo: DataTypes.STRING,
     dia_atividade: DataTypes.STRING,
     importante: DataTypes.BOOLEAN,
+    session_id: DataTypes.STRING,
+    nota: DataTypes.INTEGER,
   });
 
   return Tarefas;

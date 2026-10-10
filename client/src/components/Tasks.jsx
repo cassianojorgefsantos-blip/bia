@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { FaBolt, FaDatabase, FaTrash, FaExclamationTriangle } from "react-icons/fa";
 import Task from "./Task.jsx";
+import Modal from "./Modal.jsx";
 
-const Tasks = ({ tasks, onDelete, onDeleteAll, onToggle, fromCache, cacheTTL, cacheError }) => {
+const Tasks = ({ tasks, onDelete, onDeleteAll, onToggle, fromCache, cacheTTL, cacheError, sessionId }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [countdown, setCountdown] = useState(cacheTTL);
-  const tasksPerPage = 5; // Mostrar 5 tarefas por página
+  const [showAdminModal, setShowAdminModal] = useState(false);
+  const [adminKey, setAdminKey] = useState("");
+  const [adminErro, setAdminErro] = useState("");
+  const tasksPerPage = 5;
 
-  // Atualizar countdown quando cacheTTL muda
-  useEffect(() => {
-    setCountdown(cacheTTL);
-  }, [cacheTTL]);
+  useEffect(() => { setCountdown(cacheTTL); }, [cacheTTL]);
 
-  // Countdown automático
   useEffect(() => {
     if (countdown === null || countdown <= 0) return;
     const timer = setInterval(() => {
@@ -21,46 +21,40 @@ const Tasks = ({ tasks, onDelete, onDeleteAll, onToggle, fromCache, cacheTTL, ca
     return () => clearInterval(timer);
   }, [countdown]);
 
-  // Calcular tarefas da página atual
   const indexOfLastTask = currentPage * tasksPerPage;
   const indexOfFirstTask = indexOfLastTask - tasksPerPage;
   const currentTasks = tasks.slice(indexOfFirstTask, indexOfLastTask);
-  
-  // Calcular total de páginas
   const totalPages = Math.ceil(tasks.length / tasksPerPage);
 
-  // Resetar para primeira página quando tasks mudam
   useEffect(() => {
-    if (currentPage > totalPages && totalPages > 0) {
-      setCurrentPage(1);
-    }
+    if (currentPage > totalPages && totalPages > 0) setCurrentPage(1);
   }, [tasks.length, totalPages, currentPage]);
 
-  // Funções de navegação
-  const goToPage = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
+  const goToPage = (n) => setCurrentPage(n);
+  const goToPrevious = () => { if (currentPage > 1) setCurrentPage(currentPage - 1); };
+  const goToNext = () => { if (currentPage < totalPages) setCurrentPage(currentPage + 1); };
 
-  const goToPrevious = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+  const handleAdminDelete = () => {
+    if (!adminKey.trim()) {
+      setAdminErro("Informe a senha de admin.");
+      return;
     }
+    onDeleteAll(adminKey);
+    setShowAdminModal(false);
+    setAdminKey("");
+    setAdminErro("");
   };
 
-  const goToNext = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
+  const closeAdminModal = () => {
+    setShowAdminModal(false);
+    setAdminKey("");
+    setAdminErro("");
   };
 
-  // Se não há tarefas, não mostrar nada
-  if (tasks.length === 0) {
-    return null;
-  }
+  if (tasks.length === 0) return null;
 
   return (
     <div className="tasks-container">
-      {/* Indicador de fonte dos dados */}
       {cacheTTL !== null && (
         <div className="data-source-badge">
           {cacheError ? (
@@ -73,7 +67,6 @@ const Tasks = ({ tasks, onDelete, onDeleteAll, onToggle, fromCache, cacheTTL, ca
         </div>
       )}
 
-      {/* Lista de tarefas da página atual */}
       <div className="tasks-list">
         {currentTasks.map((task) => (
           <Task
@@ -81,76 +74,100 @@ const Tasks = ({ tasks, onDelete, onDeleteAll, onToggle, fromCache, cacheTTL, ca
             task={task}
             onDelete={onDelete}
             onToggle={onToggle}
+            sessionId={sessionId}
           />
         ))}
       </div>
 
-      {/* Controles de paginação */}
-      {totalPages > 1 && (
-        <div className="pagination">
-          <div className="pagination-info">
-            <span>
-              Mostrando {indexOfFirstTask + 1}-{Math.min(indexOfLastTask, tasks.length)} de {tasks.length} tarefas
-            </span>
-          </div>
-          
-          <div className="pagination-controls">
-            <button 
-              className="pagination-btn"
-              onClick={goToPrevious}
-              disabled={currentPage === 1}
-              title="Página anterior"
-            >
-              ‹
-            </button>
-            
-            {/* Números das páginas */}
-            {Array.from({ length: totalPages }, (_, index) => {
-              const pageNumber = index + 1;
-              
-              // Mostrar sempre primeira, última e páginas próximas da atual
-              if (
-                pageNumber === 1 ||
-                pageNumber === totalPages ||
-                (pageNumber >= currentPage - 1 && pageNumber <= currentPage + 1)
-              ) {
-                return (
-                  <button
-                    key={pageNumber}
-                    className={`pagination-btn ${currentPage === pageNumber ? 'active' : ''}`}
-                    onClick={() => goToPage(pageNumber)}
-                  >
-                    {pageNumber}
-                  </button>
-                );
-              }
-              
-              // Mostrar reticências
-              if (
-                pageNumber === currentPage - 2 ||
-                pageNumber === currentPage + 2
-              ) {
-                return <span key={pageNumber} className="pagination-dots">...</span>;
-              }
-              
-              return null;
-            })}
-            
-            <button 
-              className="pagination-btn"
-              onClick={goToNext}
-              disabled={currentPage === totalPages}
-              title="Próxima página"
-            >
-              ›
-            </button>
-          </div>
+      <div className="pagination">
+        {totalPages > 1 && (
+          <>
+            <div className="pagination-info">
+              <span>
+                Mostrando {indexOfFirstTask + 1}-{Math.min(indexOfLastTask, tasks.length)} de {tasks.length} recados
+              </span>
+            </div>
 
-          <button className="btn-delete-all" onClick={onDeleteAll} title="Excluir todas as tarefas">
-            <FaTrash /> Limpar tudo
-          </button>
-        </div>
-      )}
+            <div className="pagination-controls">
+              <button
+                className="pagination-btn"
+                onClick={goToPrevious}
+                disabled={currentPage === 1}
+                title="Página anterior"
+              >
+                ‹
+              </button>
+
+              {Array.from({ length: totalPages }, (_, i) => {
+                const p = i + 1;
+                if (p === 1 || p === totalPages || (p >= currentPage - 1 && p <= currentPage + 1)) {
+                  return (
+                    <button
+                      key={p}
+                      className={`pagination-btn ${currentPage === p ? "active" : ""}`}
+                      onClick={() => goToPage(p)}
+                    >
+                      {p}
+                    </button>
+                  );
+                }
+                if (p === currentPage - 2 || p === currentPage + 2) {
+                  return <span key={p} className="pagination-dots">...</span>;
+                }
+                return null;
+              })}
+
+              <button
+                className="pagination-btn"
+                onClick={goToNext}
+                disabled={currentPage === totalPages}
+                title="Próxima página"
+              >
+                ›
+              </button>
+            </div>
+          </>
+        )}
+
+        <button
+          className="btn-delete-all"
+          onClick={() => setShowAdminModal(true)}
+          title="Excluir todas as tarefas (requer senha de admin)"
+        >
+          <FaTrash /> Limpar tudo
+        </button>
+      </div>
+
+      <Modal
+        isOpen={showAdminModal}
+        onClose={closeAdminModal}
+        onConfirm={handleAdminDelete}
+        title="Área restrita"
+        message={
+          <div>
+            <p style={{ marginBottom: "0.75rem" }}>
+              Informe a senha de admin para continuar:
+            </p>
+            <input
+              type="password"
+              placeholder="Senha de admin"
+              value={adminKey}
+              onChange={(e) => { setAdminKey(e.target.value); setAdminErro(""); }}
+              style={{
+                width: "100%",
+                padding: "0.4rem 0.5rem",
+                borderRadius: "6px",
+                border: "1px solid var(--border-color)",
+                background: "var(--bg-card)",
+                color: "var(--text-primary)",
+                fontSize: "0.875rem",
+              }}
+            />
+            {adminErro && <span className="form-error">{adminErro}</span>}
+          </div>
+        }
+        type="warning"
+      />
     </div>
   );
 };

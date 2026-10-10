@@ -3,7 +3,7 @@ import React from "react";
 const DadosHenrylle = () => {
   return (
     <div className="dados-henrylle">
-      <h3>Links Importantes</h3>
+      <h3>Criador deste projeto</h3>
       <div className="links-grid">
         <a
           href="https://inscricao.formacaoaws.com.br/suporte"
@@ -16,13 +16,13 @@ const DadosHenrylle = () => {
         </a>
         
         <a
-          href="https://instagram.com/henryllemaia"
+          href="https://instagram.com/cassian.wjs_"
           target="_blank"
           rel="noopener noreferrer"
           className="link-card"
         >
           <h4>📸 Instagram</h4>
-          <p>Henrylle Maia</p>
+          <p>@cassian.wjs_</p>
         </a>
         
         <a
@@ -36,13 +36,13 @@ const DadosHenrylle = () => {
         </a>
         
         <a
-          href="https://www.linkedin.com/in/henrylle/recent-activity/all/"
+          href="www.linkedin.com/in/cassiano-jorge"
           target="_blank"
           rel="noopener noreferrer"
           className="link-card"
         >
           <h4>💼 LinkedIn</h4>
-          <p>Desafio Labs AWS</p>
+          <p>Cassiano Jorge</p>
         </a>
       </div>
     </div>

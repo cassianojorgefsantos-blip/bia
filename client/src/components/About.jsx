@@ -8,9 +8,9 @@ const About = () => {
       <div className="about-content">
         <div className="feature-grid">
           <div className="feature-card highlight">
-            <h3>Próximo Evento</h3>
-            <h4>AWS & IA</h4>
-            <p><strong>19/09 e 20/09/2026</strong><br/>Formação AWS</p>
+            <h3>Sobre</h3>
+            <h4>Nave de Portas Abertas - 2026</h4>
+            <p><strong>Com o tema “Conectando Futuros: Da imaginação à inovação”, o NPA 2026 convida todos a explorar como a criatividade, a tecnologia e a colaboração podem transformar ideias em novas possibilidades. Será um espaço para imaginar, experimentar, criar e refletir sobre os futuros que podemos construir juntos.</strong></p>
           </div>
         </div>
 
