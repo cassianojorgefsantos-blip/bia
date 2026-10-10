@@ -35,18 +35,38 @@
   padding: 0;
 }
 
+
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   color: var(--text-primary);
   line-height: 1.5;
   transition: color 0.2s ease;
   min-height: 100vh;
-  background: radial-gradient(circle, rgba(214, 255, 231, 1) 0%, rgba(17, 166, 0, 1) 100%);
+  background-color: #1a1a2e;
+  background-image:
+    radial-gradient(circle, #ffffff 1px, transparent 1.5px),
+    radial-gradient(circle, #ffffff 1.5px, transparent 2px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.8) 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(214, 255, 231, 0.8) 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.7) 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(140, 71, 237, 0.4) 0%, #1a1a2e 100%);
+  background-size:
+    83px 97px,
+    137px 151px,
+    193px 173px,
+    113px 127px,
+    227px 211px,
+    100% 100%;
+  background-position:
+    10px 20px,
+    60px 80px,
+    100px 30px,
+    25px 110px,
+    160px 140px,
+    center;
+  background-attachment: fixed;
 }
 
-[data-theme="dark"] body {
-  background: radial-gradient(circle, rgba(98, 217, 215, 1) 0%, rgba(140, 71, 237, 1) 100%);
-}
 
 .app {
   background: transparent;
@@ -56,17 +76,22 @@ body {
   background: transparent;
 }
 
+
 .app {
   min-height: 100vh;
   padding: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: transparent;
 }
 
+
+
 .container {
-  max-height: 680px;
-  height: 100%;
+  min-height: 680px;
+  height: auto;
+  max-height: none;
   max-width: 760px;
   width: 100%;
   margin: 0 auto;
@@ -74,8 +99,9 @@ body {
   border-radius: 8px;
   box-shadow: var(--shadow);
   border: 1px solid var(--border-color);
-  overflow: hidden;
+  overflow: visible;
 }
+
 
 /* Header */
 .header {
