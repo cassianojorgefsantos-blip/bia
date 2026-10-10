@@ -26,16 +26,6 @@ const DadosHenrylle = () => {
         </a>
         
         <a
-          href="https://www.youtube.com/@henryllemaia"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="link-card"
-        >
-          <h4>🎥 YouTube</h4>
-          <p>Canal oficial</p>
-        </a>
-        
-        <a
           href="www.linkedin.com/in/cassiano-jorge"
           target="_blank"
           rel="noopener noreferrer"
