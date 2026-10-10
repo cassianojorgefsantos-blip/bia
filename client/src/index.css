@@ -36,12 +36,44 @@
 }
 
 
+
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   color: var(--text-primary);
   line-height: 1.5;
   transition: color 0.2s ease;
   min-height: 100vh;
+
+  background-color: #11a600;
+  background-image:
+    radial-gradient(circle, #ffffff 1px, transparent 1.5px),
+    radial-gradient(circle, #ffffff 1.5px, transparent 2px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.8) 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(214, 255, 231, 0.8) 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.7) 1px, transparent 1.5px),
+    radial-gradient(circle, #d6ffe7 0%, #11a600 100%);
+
+  background-size:
+    83px 97px,
+    137px 151px,
+    193px 173px,
+    113px 127px,
+    227px 211px,
+    100% 100%;
+
+  background-position:
+    10px 20px,
+    60px 80px,
+    100px 30px,
+    25px 110px,
+    160px 140px,
+    center;
+
+  background-attachment: fixed;
+}
+
+/* Tema escuro: mantém o fundo espacial roxo */
+[data-theme="dark"] body {
   background-color: #1a1a2e;
   background-image:
     radial-gradient(circle, #ffffff 1px, transparent 1.5px),
@@ -50,6 +82,7 @@ body {
     radial-gradient(circle, rgba(214, 255, 231, 0.8) 1px, transparent 1.5px),
     radial-gradient(circle, rgba(255, 255, 255, 0.7) 1px, transparent 1.5px),
     radial-gradient(circle, rgba(140, 71, 237, 0.4) 0%, #1a1a2e 100%);
+
   background-size:
     83px 97px,
     137px 151px,
@@ -57,6 +90,7 @@ body {
     113px 127px,
     227px 211px,
     100% 100%;
+
   background-position:
     10px 20px,
     60px 80px,
@@ -64,8 +98,10 @@ body {
     25px 110px,
     160px 140px,
     center;
+
   background-attachment: fixed;
 }
+
 
 
 .app {
@@ -100,6 +136,11 @@ body {
   box-shadow: var(--shadow);
   border: 1px solid var(--border-color);
   overflow: visible;
+}
+
+/* Container mais verde no tema claro */
+:root:not([data-theme="dark"]) .container {
+  background: rgba(190, 255, 207, 0.94);
 }
 
 
