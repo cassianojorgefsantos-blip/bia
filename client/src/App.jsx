@@ -8,9 +8,12 @@ import Tasks from "./components/Tasks.jsx";
 import AddTask from "./components/AddTask.jsx";
 import About from "./components/About.jsx";
 import Cadastro from "./components/Cadastro.jsx";
+import Menu from "./components/Menu.jsx";
+import Cartas from "./components/Cartas.jsx";
+import BackToMenu from "./components/BackToMenu.jsx";
 import DebugLogs from "./components/DebugLogs.jsx";
 
-const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:8080";
+const apiUrl = import.meta.env.VITE_API_URL || "";
 
 function AppContent() {
   const [tasks, setTasks] = useState([]);
@@ -184,11 +187,14 @@ function AppContent() {
       <Router>
         <Routes>
           <Route path="/" element={<Cadastro />} />
+          <Route path="/menu" element={<Menu />} />
+          <Route path="/cartas" element={<Cartas />} />
           <Route
             path="/recados"
             element={
               <div className="container">
                 <Header />
+                <BackToMenu />
                 <RecadosPage />
                 <Footer />
               </div>
@@ -198,7 +204,7 @@ function AppContent() {
             path="/about"
             element={
               <div className="container">
-                <Header />
+                <Header title="REC'n'Play 2026" />
                 <About />
                 <Footer />
               </div>

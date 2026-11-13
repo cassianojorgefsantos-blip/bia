@@ -10,9 +10,9 @@ const Cadastro = () => {
   const { isDarkMode, toggleTheme } = useTheme();
 
   useEffect(() => {
-    // Se já tem sessão, vai direto para os recados
+    // Se já tem sessão, vai direto para o menu
     const sessionId = localStorage.getItem("bia_session_id");
-    if (sessionId) navigate("/recados");
+    if (sessionId) navigate("/menu");
   }, [navigate]);
 
   const handleSubmit = (e) => {
@@ -31,14 +31,14 @@ const Cadastro = () => {
     localStorage.setItem("bia_session_id", sessionId);
     localStorage.setItem("bia_nome", nome.trim());
 
-    navigate("/recados");
+    navigate("/menu");
   };
 
   return (
-    <div className="app">
-      <div className="container">
+    <>
+      <main className="container cadastro-container">
         <header className="header">
-          <h1>NPA 2026</h1>
+          <h1>REC'n'Play 2026</h1>
           <button
             className="theme-toggle"
             onClick={toggleTheme}
@@ -50,13 +50,16 @@ const Cadastro = () => {
 
         <form className="add-form cadastro-form" onSubmit={handleSubmit}>
           <div className="cadastro-intro">
-            <p>Deixe seu recado para o evento! 🛸</p>
-            <p className="cadastro-sub">Informe seu nome para continuar.</p>
+            <p>Seu encontro começa aqui.</p>
+            <p className="cadastro-sub">Entre para compartilhar feedbacks e escrever cartas.</p>
           </div>
 
           <div className="form-control">
-            <label>Seu nome</label>
+            <label htmlFor="participant-name">Seu nome</label>
             <input
+              id="participant-name"
+              maxLength={120}
+              autoComplete="name"
               type="text"
               placeholder="Como você se chama?"
               value={nome}
@@ -73,8 +76,8 @@ const Cadastro = () => {
             Entrar
           </button>
         </form>
-      </div>
-    </div>
+      </main>
+    </>
   );
 };
 

@@ -9,8 +9,10 @@ const About = () => {
         <div className="feature-grid">
           <div className="feature-card highlight">
             <h3>Sobre</h3>
-            <h4>Nave de Portas Abertas - 2026</h4>
-            <p><strong>Com o tema “Conectando Futuros: Da imaginação à inovação”, o NPA 2026 convida todos a explorar como a criatividade, a tecnologia e a colaboração podem transformar ideias em novas possibilidades. Será um espaço para imaginar, experimentar, criar e refletir sobre os futuros que podemos construir juntos.</strong></p>
+            <h4>REC'n'Play 2026</h4>
+            <p>O REC'n'Play é um festival gratuito de inovação, tecnologia, criatividade e cultura que transforma o Bairro do Recife em um grande espaço de conhecimento e conexões.</p>
+            <p>Conhecido como o “Carnaval do Conhecimento”, reúne palestras, oficinas, experiências imersivas, negócios e shows. Realizado pelo Porto Digital e pelo Sebrae Pernambuco, o festival convida pessoas de todas as áreas a aprender, experimentar e imaginar novos futuros.</p>
+            <p>Confira a programação e as inscrições no <a href="https://recnplay.pe/" target="_blank" rel="noopener noreferrer" className="footer-link">site oficial do REC'n'Play</a>.</p>
           </div>
         </div>
 
@@ -18,7 +20,7 @@ const About = () => {
       </div>
 
       <div className="about-footer">
-        <Link to="/" className="back-button">
+        <Link to="/menu" className="back-button">
           ← Voltar
         </Link>
       </div>

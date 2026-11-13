@@ -13,7 +13,8 @@ describe('Tarefas Controller', () => {
   beforeEach(() => {
     req = {
       body: {},
-      params: {}
+      params: {},
+      headers: { "x-session-id": "test-session" }
     };
     res = {
       send: jest.fn(),
@@ -47,7 +48,7 @@ describe('Tarefas Controller', () => {
       const { create } = tarefasController();
       await create(req, res);
 
-      expect(mockTarefas.create).toHaveBeenCalledWith(novaTarefa);
+      expect(mockTarefas.create).toHaveBeenCalledWith({ ...novaTarefa, session_id: null, nota: null });
       expect(res.send).toHaveBeenCalledWith(tarefaCriada);
     });
 
@@ -136,6 +137,7 @@ describe('Tarefas Controller', () => {
   describe('delete', () => {
     test('deve deletar uma tarefa com sucesso', async () => {
       req.params.uuid = '123';
+      mockTarefas.findByPk.mockResolvedValue({ uuid: "123", session_id: "test-session" });
       mockTarefas.destroy.mockResolvedValue(1);
 
       const { delete: deleteFn } = tarefasController();
@@ -151,7 +153,7 @@ describe('Tarefas Controller', () => {
 
     test('deve retornar 404 quando tarefa não existe', async () => {
       req.params.uuid = '999';
-      mockTarefas.destroy.mockResolvedValue(0);
+      mockTarefas.findByPk.mockResolvedValue(null);
 
       const { delete: deleteFn } = tarefasController();
       await deleteFn(req, res);
@@ -164,6 +166,7 @@ describe('Tarefas Controller', () => {
 
     test('deve retornar erro 500 ao falhar', async () => {
       req.params.uuid = '123';
+      mockTarefas.findByPk.mockResolvedValue({ uuid: '123', session_id: 'test-session' });
       mockTarefas.destroy.mockRejectedValue(new Error('Erro no banco'));
 
       const { delete: deleteFn } = tarefasController();
