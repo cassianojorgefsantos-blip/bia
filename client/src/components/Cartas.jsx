@@ -7,6 +7,9 @@ import BackToMenu from './BackToMenu.jsx';
 const apiUrl = import.meta.env.VITE_API_URL || '';
 async function request(path, options) {
   const response = await fetch(`${apiUrl}/api/cartas${path}`, { ...options, headers: { ...options?.headers, 'x-session-id': localStorage.getItem('bia_session_id') || '' } });
+  if (!response.headers.get('content-type')?.includes('application/json')) {
+    throw new Error('Não foi possível acessar o serviço de cartas. Tente novamente em instantes.');
+  }
   const data = await response.json();
   if (!response.ok) throw new Error(data.message || 'Não foi possível concluir. Tente novamente.');
   return data;
