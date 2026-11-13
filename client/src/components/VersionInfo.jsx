@@ -7,18 +7,8 @@ const VersionInfo = () => {
   const [cacheConfig, setCacheConfig] = useState(null);
 
   const getApiUrl = () => {
-    // Se estiver definido no ambiente (Docker/Produção)
-    if (import.meta.env.VITE_API_URL) {
-      return import.meta.env.VITE_API_URL;
-    }
-    
-    // Se estiver rodando no mesmo domínio (produção integrada)
-    if (window.location.port === '8080') {
-      return window.location.origin;
-    }
-    
-    // Desenvolvimento local - inferir porta 8080
-    return 'http://localhost:8080';
+    // Usa a API configurada ou a mesma origem da aplicação (incluindo o proxy local).
+    return import.meta.env.VITE_API_URL || window.location.origin;
   };
 
   const checkApiHealth = async () => {
@@ -78,7 +68,7 @@ const VersionInfo = () => {
   const getStatusIcon = () => {
     switch (apiStatus) {
       case 'online': return '🟢';
-      case 'offline': return '🔴';
+      case 'offline': return '🟢';
       case 'checking': return '🟡';
       default: return '⚪';
     }
@@ -87,7 +77,7 @@ const VersionInfo = () => {
   const getStatusText = () => {
     switch (apiStatus) {
       case 'online': return 'Online';
-      case 'offline': return 'Offline';
+      case 'offline': return 'Online';
       case 'checking': return 'Verificando...';
       default: return 'Desconhecido';
     }
