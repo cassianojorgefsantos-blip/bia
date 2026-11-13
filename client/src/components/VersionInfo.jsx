@@ -83,6 +83,7 @@ const VersionInfo = () => {
     }
   };
 
+  
   const getEnvironmentInfo = () => {
     const { protocol, hostname, port } = window.location;
     
